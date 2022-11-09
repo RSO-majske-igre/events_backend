@@ -11,9 +11,9 @@ import javax.validation.Valid;
 @RequestMapping("/test")
 public interface TestApiInterface {
 
-    @GetMapping
-    TestDto test();
-
-    @PostMapping
-    TestDto postTest(@RequestBody @Valid TestDto testDto);
+//    @GetMapping
+//    TestDto test();
+//
+//    @PostMapping
+//    TestDto postTest(@RequestBody @Valid TestDto testDto);
 }
