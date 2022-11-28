@@ -1,4 +1,4 @@
-package team.marela.backend.database.entities.participant;
+package team.marela.backend.database.entities.participants;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

@@ -1,4 +1,4 @@
-package team.marela.backend.database.entities.participant;
+package team.marela.backend.database.entities.participants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

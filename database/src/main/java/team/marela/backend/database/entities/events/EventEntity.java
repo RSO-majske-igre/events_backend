@@ -4,7 +4,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
-import team.marela.backend.database.entities.participant.ParticipantEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

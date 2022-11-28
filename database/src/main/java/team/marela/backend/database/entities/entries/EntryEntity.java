@@ -5,7 +5,7 @@ import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.events.EventEntity;
 import team.marela.backend.database.entities.events.EventResultEntity;
-import team.marela.backend.database.entities.participant.ParticipantEntity;
+import team.marela.backend.database.entities.participants.ParticipantEntity;
 
 import javax.persistence.*;
 import java.util.Set;
