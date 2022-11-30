@@ -8,8 +8,6 @@ import lombok.Setter;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 import team.marela.backend.database.entities.participants.ParticipantEntity;
 
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Set;

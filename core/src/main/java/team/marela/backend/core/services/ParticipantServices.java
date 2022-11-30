@@ -26,9 +26,10 @@ public class ParticipantServices {
 
     /**
      * returns all participants with pagination
-     * @param page default 0
+     *
+     * @param page    default 0
      * @param perPage default 25
-     * @param sortBy default name
+     * @param sortBy  default name
      * @return page of dtos
      */
     public Page<ParticipantDto> getParticipants(Integer page, Integer perPage, String sortBy) {
@@ -37,8 +38,9 @@ public class ParticipantServices {
 
     /**
      * returns all participants with pagination who are in defined dorm
-     * @param dorm dorm name
-     * @param page page in pagination
+     *
+     * @param dorm    dorm name
+     * @param page    page in pagination
      * @param perPage result per page
      * @param sortBy
      * @return dtos in page
@@ -49,6 +51,7 @@ public class ParticipantServices {
 
     /**
      * returns participant with given id
+     *
      * @param id participant uuid
      * @return participant or throws NoDataFoundException
      */
@@ -58,6 +61,7 @@ public class ParticipantServices {
 
     /**
      * saves participant
+     *
      * @param dto
      * @return returns saved participant
      */

@@ -1,6 +1,9 @@
 package team.marela.backend.database.entities.events;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;

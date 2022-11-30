@@ -1,11 +1,8 @@
 package team.marela.backend.api.endpoints.test;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.marela.backend.api.interfaces.test.TestApiInterface;
-import team.marela.backend.core.models.test.TestDto;
 
 @RestController
 @RequiredArgsConstructor
