@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import team.marela.backend.core.models.events.EntryDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -34,5 +36,8 @@ public class ParticipantDto {
     })
     private DormDto dorm;
 
-//    private Set<EntryEntity> entries;
+    @JsonIgnoreProperties(value = {
+            "participants"
+    })
+    private Set<EntryDto> entries;
 }
