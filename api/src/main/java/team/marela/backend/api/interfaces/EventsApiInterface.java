@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import team.marela.backend.core.models.events.EventDto;
 import team.marela.backend.core.models.participants.ParticipantDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
@@ -23,10 +24,7 @@ public interface EventsApiInterface {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Returns page of data", content = @Content)
     })
-    Page<ParticipantDto> getParticipants(
-            @Parameter(description = "Dorm name, not required")
-            @RequestParam(required = false)
-            String dorm,
+    Page<EventDto> getEvents(
             @Parameter(description = "Page of data, starts with 0")
             @RequestParam(required = false, defaultValue = "0")
             Integer page,
@@ -34,41 +32,41 @@ public interface EventsApiInterface {
             @RequestParam(required = false, defaultValue = "25")
             Integer perPage,
             @Parameter(description = "Sorting by field, default name")
-            @RequestParam(required = false, defaultValue = "name")
+            @RequestParam(required = false, defaultValue = "eventName")
             String sortBy
     );
 
     @GetMapping("/{id}")
-    @Operation(summary = "Returns participant with given ID")
+    @Operation(summary = "Returns events with given ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns participant", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Participant with given ID not found"),
+            @ApiResponse(responseCode = "200", description = "Returns event", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Event with given ID not found"),
     })
-    ParticipantDto getParticipantById(
-            @Parameter(description = "UUID of participant")
+    EventDto getEventById(
+            @Parameter(description = "UUID of event")
             @PathVariable UUID id
     );
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Creates new participant")
+    @Operation(summary = "Creates new event")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Participant created", content = @Content)
+            @ApiResponse(responseCode = "201", description = "Event created", content = @Content)
     })
-    ParticipantDto postParticipant(
-            @Parameter(description = "ParticipantDto to be saved")
-            @RequestBody @Valid ParticipantDto participant
+    EventDto postEvent(
+            @Parameter(description = "EventDto to be saved")
+            @RequestBody @Valid EventDto event
     );
 
     @PutMapping
-    @Operation(summary = "Updates participant")
+    @Operation(summary = "Updates event")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Participant updated", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Participant with given UUID not found"),
+            @ApiResponse(responseCode = "200", description = "Event updated", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Event with given UUID not found"),
     })
-    ParticipantDto updateParticipant(
+    EventDto updateEvent(
             @RequestBody
             @Validated(NotNullUUIDValidationGroup.class)
-            ParticipantDto participant
+            EventDto event
     );
 }
