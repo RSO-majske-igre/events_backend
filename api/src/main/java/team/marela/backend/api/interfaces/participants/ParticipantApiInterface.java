@@ -15,7 +15,7 @@ public interface ParticipantApiInterface {
     @GetMapping
     Page<ParticipantDto> getParticipants(
             @RequestParam(required = false) String dorm,
-            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "25") Integer perPage,
             @RequestParam(required = false, defaultValue = "name") String sortBy
     );

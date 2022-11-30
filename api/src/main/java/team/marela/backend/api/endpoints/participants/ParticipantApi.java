@@ -17,12 +17,12 @@ public class ParticipantApi implements ParticipantApiInterface {
 
     @Override
     public Page<ParticipantDto> getParticipants(String dorm, Integer page, Integer perPage, String sortBy) {
-        return null;
+        return dorm == null ? participantServices.getParticipants(page, perPage, sortBy) : participantServices.getParticipantsByDorm(dorm, page, perPage, sortBy);
     }
 
     @Override
     public ParticipantDto getParticipantById(UUID id) {
-        return null;
+        return participantServices.getParticipantById(id);
     }
 
     @Override
