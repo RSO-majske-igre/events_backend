@@ -6,6 +6,10 @@ import team.marela.backend.database.BaseRepository;
 import team.marela.backend.database.entities.participants.DormEntity;
 import team.marela.backend.database.entities.participants.ParticipantEntity;
 
+import java.util.Optional;
+
 public interface ParticipantRepository extends BaseRepository<ParticipantEntity> {
     Page<ParticipantEntity> findByDorm(DormEntity dorm, Pageable pagination);
+
+    Optional<ParticipantEntity> findByEmail(String email);
 }

@@ -1,9 +1,9 @@
-package team.marela.backend.api.endpoints;
+package team.marela.backend.api.endpoints.events;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
-import team.marela.backend.api.interfaces.EventsApiInterface;
+import team.marela.backend.api.interfaces.events.EventsApiInterface;
 import team.marela.backend.core.models.events.EventDto;
 import team.marela.backend.core.services.EventsService;
 

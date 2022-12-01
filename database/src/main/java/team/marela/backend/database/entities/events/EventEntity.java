@@ -30,7 +30,7 @@ public class EventEntity extends BaseEntity {
     @Column(nullable = false)
     private LocalDateTime startTime;
 
-    private BigDecimal pricePerEntry;
+    private BigDecimal fee;
 
     @Column(nullable = false)
     private String teamDescription;

@@ -30,7 +30,7 @@ public class EventDto {
     @NotNull
     private LocalDateTime startTime;
     @NotNull
-    private BigDecimal pricePerEntry;
+    private BigDecimal fee;
     @NotNull
     @NotEmpty
     private String teamDescription;

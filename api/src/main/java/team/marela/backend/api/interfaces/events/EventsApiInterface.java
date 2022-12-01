@@ -1,4 +1,4 @@
-package team.marela.backend.api.interfaces;
+package team.marela.backend.api.interfaces.events;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team.marela.backend.core.models.events.EventDto;
-import team.marela.backend.core.models.participants.ParticipantDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
 import javax.validation.Valid;
