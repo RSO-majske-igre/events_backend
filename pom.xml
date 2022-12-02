@@ -12,9 +12,9 @@
     <packaging>pom</packaging>
 
     <groupId>team.marela</groupId>
-    <artifactId>multimodule-project</artifactId>
+    <artifactId>events-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>multimodule-project</name>
+    <name>events-backend</name>
     <description>Station catalog for RSO project</description>
 
     <modules>
