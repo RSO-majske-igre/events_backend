@@ -46,15 +46,15 @@ jobs:
         id: docker_build_database
         uses: docker/build-push-action@v2
         with:
-          context: ./database
+          context: ./
           file: ./database/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/events_backend_database:latest
           #tags: ${{ secrets.DOCKER_HUB_USERNAME }}/events_backend:${{ steps.time.outputs.time }}
 
-      - name: Image digest
+      - name: Image digest database
         run: echo ${{ steps.docker_build_database.outputs.digest }}
-        
+
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
