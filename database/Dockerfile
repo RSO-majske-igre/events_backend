@@ -6,6 +6,6 @@ RUN mvn clean package -Dmaven.test.skip=true
 FROM openjdk:17
 RUN mkdir /database
 WORKDIR /database
-COPY --from=build ./database/target/database-0.0.1-SNAPSHOT.jar /app
+COPY --from=build ./database/database/target/database-0.0.1-SNAPSHOT.jar /app
 EXPOSE 3306
 CMD ["java", "-jar", "database-0.0.1-SNAPSHOT.jar"]
