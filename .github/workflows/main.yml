@@ -27,9 +27,9 @@ jobs:
 
       - name: Get Time
         id: time
-        uses: nanzm/get-time-action@v1.0
+        uses: nanzm/get-time-action@v1.1
         with:
-          timeZone: -1
+          timeZone: 6
           format: 'YYYY-MM-DD-HH-mm-ss'
 
 
