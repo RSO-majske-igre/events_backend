@@ -7,6 +7,7 @@ import team.marela.backend.api.interfaces.participants.ParticipantApiInterface;
 import team.marela.backend.core.models.participants.ParticipantDto;
 import team.marela.backend.core.services.ParticipantServices;
 
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 @RestController
@@ -15,10 +16,10 @@ public class ParticipantApi implements ParticipantApiInterface {
 
     private final ParticipantServices participantServices;
 
-    @Override
-    public Page<ParticipantDto> getParticipants(String dorm, Integer page, Integer perPage, String sortBy) {
-        return dorm == null ? participantServices.getParticipants(page, perPage, sortBy) : participantServices.getParticipantsByDorm(dorm, page, perPage, sortBy);
-    }
+//    @Override
+//    public Page<ParticipantDto> getParticipants(String dorm, Integer page, Integer perPage, String sortBy) {
+//        return dorm == null ? participantServices.getParticipants(page, perPage, sortBy) : participantServices.getParticipantsByDorm(dorm, page, perPage, sortBy);
+//    }
 
     @Override
     public ParticipantDto getParticipantById(UUID id) {
@@ -31,7 +32,7 @@ public class ParticipantApi implements ParticipantApiInterface {
     }
 
     @Override
-    public ParticipantDto updateParticipant(ParticipantDto participant) {
+    public ParticipantDto updateParticipant(ParticipantDto participant) throws URISyntaxException {
         return participantServices.updateParticipant(participant);
     }
 }

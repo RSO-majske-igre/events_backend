@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
-import team.marela.backend.database.entities.participants.ParticipantEntity;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,5 +27,5 @@ public class DormDto {
             "dorm",
             "entries"
     })
-    private Set<ParticipantEntity> participants;
+    private Set<ParticipantDto> participants;
 }

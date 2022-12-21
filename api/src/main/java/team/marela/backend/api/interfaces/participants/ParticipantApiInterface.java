@@ -13,30 +13,31 @@ import team.marela.backend.core.models.participants.ParticipantDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
 import javax.validation.Valid;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 @RequestMapping("/participants")
 public interface ParticipantApiInterface {
 
-    @GetMapping
-    @Operation(summary = "Returns page of participations")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns page of data", content = @Content)
-    })
-    Page<ParticipantDto> getParticipants(
-            @Parameter(description = "Dorm name, not required")
-            @RequestParam(required = false)
-            String dorm,
-            @Parameter(description = "Page of data, starts with 0")
-            @RequestParam(required = false, defaultValue = "0")
-            Integer page,
-            @Parameter(description = "Results per page, default 25")
-            @RequestParam(required = false, defaultValue = "25")
-            Integer perPage,
-            @Parameter(description = "Sorting by field, default name")
-            @RequestParam(required = false, defaultValue = "name")
-            String sortBy
-    );
+//    @GetMapping
+//    @Operation(summary = "Returns page of participations")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Returns page of data", content = @Content)
+//    })
+//    Page<ParticipantDto> getParticipants(
+//            @Parameter(description = "Dorm name, not required")
+//            @RequestParam(required = false)
+//            String dorm,
+//            @Parameter(description = "Page of data, starts with 0")
+//            @RequestParam(required = false, defaultValue = "0")
+//            Integer page,
+//            @Parameter(description = "Results per page, default 25")
+//            @RequestParam(required = false, defaultValue = "25")
+//            Integer perPage,
+//            @Parameter(description = "Sorting by field, default name")
+//            @RequestParam(required = false, defaultValue = "name")
+//            String sortBy
+//    );
 
     @GetMapping("/{id}")
     @Operation(summary = "Returns participant with given ID")
@@ -70,5 +71,5 @@ public interface ParticipantApiInterface {
             @RequestBody
             @Validated(NotNullUUIDValidationGroup.class)
             ParticipantDto participant
-    );
+    ) throws URISyntaxException;
 }
