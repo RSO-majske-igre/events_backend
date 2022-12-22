@@ -1,7 +1,6 @@
 package team.marela.backend.api.endpoints.participants;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 import team.marela.backend.api.interfaces.participants.ParticipantApiInterface;
 import team.marela.backend.core.models.participants.ParticipantDto;

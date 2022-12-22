@@ -6,7 +6,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import team.marela.backend.core.models.participants.ParticipantDto;
 
 import java.net.URI;
@@ -19,10 +18,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ParticipantServices {
 
+    private final RestTemplate restTemplate = new RestTemplate();
     @Value("${majskeigre_participants_url}")
     private String participantsBaseUrl;
-
-    private final RestTemplate restTemplate = new RestTemplate();
 
     /**
      * returns participant with given id
