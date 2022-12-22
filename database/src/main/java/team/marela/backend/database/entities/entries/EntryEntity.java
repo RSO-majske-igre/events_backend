@@ -3,6 +3,7 @@ package team.marela.backend.database.entities.entries;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
+import team.marela.backend.database.entities.ParticipantEntity;
 import team.marela.backend.database.entities.events.EventEntity;
 import team.marela.backend.database.entities.events.EventResultEntity;
 
@@ -29,13 +30,13 @@ public class EntryEntity extends BaseEntity {
     @JoinColumn(name = "eventId")
     private EventEntity event;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "participants_entries",
-//            joinColumns = {@JoinColumn(name = "entryId")},
-//            inverseJoinColumns = {@JoinColumn(name = "participantId")}
-//    )
-//    private Set<ParticipantEntity> participants;
+    @ManyToMany
+    @JoinTable(
+            name = "participants_entries",
+            joinColumns = {@JoinColumn(name = "entryId")},
+            inverseJoinColumns = {@JoinColumn(name = "participantId")}
+    )
+    private Set<ParticipantEntity> participants;
 
     @OneToOne(mappedBy = "entry")
     private EventResultEntity result;

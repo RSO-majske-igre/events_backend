@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import team.marela.backend.core.models.events.EntryDto;
 
 import javax.validation.Valid;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 @RequestMapping("/events/entries")
@@ -42,7 +43,7 @@ public interface EntriesApiInterface {
     EntryDto getEntryById(
             @Parameter(description = "UUID of entity")
             @PathVariable UUID id
-    );
+    ) throws URISyntaxException;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -53,5 +54,5 @@ public interface EntriesApiInterface {
     EntryDto postEntry(
             @Parameter(description = "Entity to be saved")
             @RequestBody @Valid EntryDto entry
-    );
+    ) throws URISyntaxException;
 }

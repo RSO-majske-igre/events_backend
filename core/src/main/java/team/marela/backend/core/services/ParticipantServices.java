@@ -11,6 +11,8 @@ import team.marela.backend.core.models.participants.ParticipantDto;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -33,6 +35,15 @@ public class ParticipantServices {
                 String.format("%s/participants/%s", participantsBaseUrl, id.toString()),
                 ParticipantDto.class
         ).getBody();
+    }
+
+    public Set<ParticipantDto> getParticipantsById(List<UUID> ids) throws URISyntaxException {
+        return (Set<ParticipantDto>) (restTemplate.exchange(
+                new URI(String.format("%s/participants/find-by-ids", participantsBaseUrl)),
+                HttpMethod.PUT,
+                new HttpEntity<>(ids),
+                Set.class
+        ).getBody());
     }
 
     /**
