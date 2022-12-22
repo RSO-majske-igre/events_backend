@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class EntriesService {
 
 
-    //todo
     private final ParticipantServices participantServices;
     private final EntryRepository entryRepository;
     private final EventRepository eventRepository;
