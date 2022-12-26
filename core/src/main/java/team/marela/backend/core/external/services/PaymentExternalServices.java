@@ -21,18 +21,21 @@ public class PaymentExternalServices {
     private String paymentsBaseUrl;
 
 
-    public void createInvoice(EntryEntity entry, ParticipantEntity participant) {
+    public PaymentsExternalInvoiceDto createInvoice(EntryEntity entry, ParticipantEntity participant) {
         var price = entry.getEvent().getFee();
-        var longPrice = Long.parseLong(
+        var wholePart = price.divideToIntegralValue(BigDecimal.ONE).toBigInteger();
+        var fractionPart = price.remainder(BigDecimal.ONE).multiply(new BigDecimal(100)).toBigInteger();
+        var stringPrice =
                 String.format(
                         "%s%s",
-                        price.divideToIntegralValue(BigDecimal.ONE),
-                        price.remainder(BigDecimal.ONE)
-                )
-        );
+                        wholePart,
+                        fractionPart
+                );
+        var longPrice = Long.parseLong(stringPrice);
 
         var invoice = PaymentsExternalInvoiceDto.builder()
-                .customerId(participant.getParticipantId())
+                .participantId(participant.getParticipantId())
+                .sumAmount(longPrice)
                 .status(PaymentsExternalInvoiceStatusEnum.CREATED)
                 .invoiceLines(
                         Set.of(
@@ -44,11 +47,11 @@ public class PaymentExternalServices {
                 ).build();
 
         var x = restTemplate.postForEntity(
-                String.format("%s/participants", paymentsBaseUrl),
+                String.format("%s/invoice", paymentsBaseUrl),
                 invoice,
                 PaymentsExternalInvoiceDto.class
         ).getBody();
 
-        x = x;
+        return x;
     }
 }

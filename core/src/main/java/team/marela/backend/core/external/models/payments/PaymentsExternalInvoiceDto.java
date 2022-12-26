@@ -13,7 +13,7 @@ import java.util.UUID;
 public class PaymentsExternalInvoiceDto {
     private UUID id;
     private Long sumAmount;
-    private UUID customerId;
+    private UUID participantId;
     private PaymentsExternalInvoiceStatusEnum status;
     private Set<PaymentsExternalInvoiceLineDto> invoiceLines;
 }
