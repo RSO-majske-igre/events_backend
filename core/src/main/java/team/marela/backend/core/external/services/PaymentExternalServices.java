@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import team.marela.backend.core.external.models.participants.ParticipantsExternalParticipantDto;
 import team.marela.backend.core.external.models.payments.PaymentsExternalInvoiceDto;
 import team.marela.backend.core.external.models.payments.PaymentsExternalInvoiceLineDto;
 import team.marela.backend.core.external.models.payments.PaymentsExternalInvoiceStatusEnum;

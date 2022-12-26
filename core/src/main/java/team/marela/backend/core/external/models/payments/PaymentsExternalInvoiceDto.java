@@ -2,8 +2,6 @@ package team.marela.backend.core.external.models.payments;
 
 import lombok.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.UUID;
 

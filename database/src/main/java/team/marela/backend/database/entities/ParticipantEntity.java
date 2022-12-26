@@ -9,7 +9,10 @@ import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
 import team.marela.backend.database.entities.entries.EntryParticipantInvoiceEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.Set;
 import java.util.UUID;
 
