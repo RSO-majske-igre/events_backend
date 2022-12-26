@@ -1,4 +1,4 @@
-package team.marela.backend.core.models.events;
+package team.marela.backend.core.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

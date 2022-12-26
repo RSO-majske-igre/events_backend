@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import team.marela.backend.core.models.participants.ParticipantDto;
+import team.marela.backend.core.external.models.participants.ParticipantsExternalParticipantDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
 import javax.validation.Valid;
@@ -44,7 +44,7 @@ public interface ParticipantApiInterface {
             @ApiResponse(responseCode = "200", description = "Returns participant", content = @Content),
             @ApiResponse(responseCode = "404", description = "Participant with given ID not found"),
     })
-    ParticipantDto getParticipantById(
+    ParticipantsExternalParticipantDto getParticipantById(
             @Parameter(description = "UUID of participant")
             @PathVariable UUID id
     );
@@ -55,9 +55,9 @@ public interface ParticipantApiInterface {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Participant created", content = @Content)
     })
-    ParticipantDto postParticipant(
+    ParticipantsExternalParticipantDto postParticipant(
             @Parameter(description = "ParticipantDto to be saved")
-            @RequestBody @Valid ParticipantDto participant
+            @RequestBody @Valid ParticipantsExternalParticipantDto participant
     );
 
     @PutMapping
@@ -66,9 +66,9 @@ public interface ParticipantApiInterface {
             @ApiResponse(responseCode = "200", description = "Participant updated", content = @Content),
             @ApiResponse(responseCode = "404", description = "Participant with given UUID not found"),
     })
-    ParticipantDto updateParticipant(
+    ParticipantsExternalParticipantDto updateParticipant(
             @RequestBody
             @Validated(NotNullUUIDValidationGroup.class)
-            ParticipantDto participant
+            ParticipantsExternalParticipantDto participant
     ) throws URISyntaxException;
 }

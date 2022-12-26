@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import team.marela.backend.core.exceptions.DataNotFoundException;
 import team.marela.backend.core.mappers.DtoMapper;
-import team.marela.backend.core.models.events.EventDto;
+import team.marela.backend.core.models.EventDto;
 import team.marela.backend.database.entities.events.EventEntity;
 import team.marela.backend.database.entities.events.EventLocationEntity;
 import team.marela.backend.database.repositories.events.EventLocationRepository;

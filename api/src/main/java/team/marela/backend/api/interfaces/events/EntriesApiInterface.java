@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import team.marela.backend.core.models.events.EntryDto;
+import team.marela.backend.core.models.EntryDto;
 
 import javax.validation.Valid;
 import java.net.URISyntaxException;

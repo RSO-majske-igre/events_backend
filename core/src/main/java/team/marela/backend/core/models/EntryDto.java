@@ -1,11 +1,11 @@
-package team.marela.backend.core.models.events;
+package team.marela.backend.core.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import team.marela.backend.core.models.participants.ParticipantDto;
+import team.marela.backend.core.external.models.participants.ParticipantsExternalParticipantDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
 import javax.validation.constraints.NotNull;
@@ -31,7 +31,7 @@ public class EntryDto {
     @JsonIgnoreProperties(value = {
             "entries"
     })
-    private Set<ParticipantDto> participants;
+    private Set<ParticipantsExternalParticipantDto> participants;
 
     private Integer place;
     private Integer points;

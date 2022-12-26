@@ -40,4 +40,7 @@ public class EntryEntity extends BaseEntity {
 
     @OneToOne(mappedBy = "entry")
     private EventResultEntity result;
+
+    @OneToMany(mappedBy = "entry")
+    private Set<EntryParticipantInvoiceEntity> invoices;
 }

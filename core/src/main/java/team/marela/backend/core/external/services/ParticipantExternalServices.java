@@ -1,4 +1,4 @@
-package team.marela.backend.core.services;
+package team.marela.backend.core.external.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,7 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import team.marela.backend.core.models.participants.ParticipantDto;
+import team.marela.backend.core.external.models.participants.ParticipantsExternalParticipantDto;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,10 +16,10 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ParticipantServices {
+public class ParticipantExternalServices {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    @Value("${majskeigre_participants_url}")
+    @Value("${external.url.majskeigre_participants_url}")
     private String participantsBaseUrl;
 
     /**
@@ -28,15 +28,15 @@ public class ParticipantServices {
      * @param id participant uuid
      * @return participant or throws NoDataFoundException
      */
-    public ParticipantDto getParticipantById(UUID id) {
+    public ParticipantsExternalParticipantDto getParticipantById(UUID id) {
         return restTemplate.getForEntity(
                 String.format("%s/participants/%s", participantsBaseUrl, id.toString()),
-                ParticipantDto.class
+                ParticipantsExternalParticipantDto.class
         ).getBody();
     }
 
-    public Set<ParticipantDto> getParticipantsById(List<UUID> ids) throws URISyntaxException {
-        return (Set<ParticipantDto>) (restTemplate.exchange(
+    public Set<ParticipantsExternalParticipantDto> getParticipantsById(List<UUID> ids) throws URISyntaxException {
+        return (Set<ParticipantsExternalParticipantDto>) (restTemplate.exchange(
                 new URI(String.format("%s/participants/find-by-ids", participantsBaseUrl)),
                 HttpMethod.PUT,
                 new HttpEntity<>(ids),
@@ -50,20 +50,20 @@ public class ParticipantServices {
      * @param dto
      * @return returns saved participant
      */
-    public ParticipantDto saveParticipant(ParticipantDto dto) {
+    public ParticipantsExternalParticipantDto saveParticipant(ParticipantsExternalParticipantDto dto) {
         return restTemplate.postForEntity(
                 String.format("%s/participants", participantsBaseUrl),
                 dto,
-                ParticipantDto.class
+                ParticipantsExternalParticipantDto.class
         ).getBody();
     }
 
-    public ParticipantDto updateParticipant(ParticipantDto dto) throws URISyntaxException {
+    public ParticipantsExternalParticipantDto updateParticipant(ParticipantsExternalParticipantDto dto) throws URISyntaxException {
         return restTemplate.exchange(
                 new URI(String.format("%s/participants", participantsBaseUrl)),
                 HttpMethod.PUT,
                 new HttpEntity<>(dto),
-                ParticipantDto.class
+                ParticipantsExternalParticipantDto.class
         ).getBody();
     }
 

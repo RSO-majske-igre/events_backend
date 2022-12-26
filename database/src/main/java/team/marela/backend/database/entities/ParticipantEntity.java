@@ -7,10 +7,9 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
+import team.marela.backend.database.entities.entries.EntryParticipantInvoiceEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,4 +26,7 @@ public class ParticipantEntity extends BaseEntity {
 
     @ManyToMany(mappedBy = "participants")
     private Set<EntryEntity> entries;
+
+    @OneToMany(mappedBy = "participant")
+    private Set<EntryParticipantInvoiceEntity> invoices;
 }

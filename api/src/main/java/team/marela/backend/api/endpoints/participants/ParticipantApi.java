@@ -3,8 +3,8 @@ package team.marela.backend.api.endpoints.participants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import team.marela.backend.api.interfaces.participants.ParticipantApiInterface;
-import team.marela.backend.core.models.participants.ParticipantDto;
-import team.marela.backend.core.services.ParticipantServices;
+import team.marela.backend.core.external.models.participants.ParticipantsExternalParticipantDto;
+import team.marela.backend.core.external.services.ParticipantExternalServices;
 
 import java.net.URISyntaxException;
 import java.util.UUID;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ParticipantApi implements ParticipantApiInterface {
 
-    private final ParticipantServices participantServices;
+    private final ParticipantExternalServices participantServices;
 
 //    @Override
 //    public Page<ParticipantDto> getParticipants(String dorm, Integer page, Integer perPage, String sortBy) {
@@ -21,17 +21,17 @@ public class ParticipantApi implements ParticipantApiInterface {
 //    }
 
     @Override
-    public ParticipantDto getParticipantById(UUID id) {
+    public ParticipantsExternalParticipantDto getParticipantById(UUID id) {
         return participantServices.getParticipantById(id);
     }
 
     @Override
-    public ParticipantDto postParticipant(ParticipantDto participant) {
+    public ParticipantsExternalParticipantDto postParticipant(ParticipantsExternalParticipantDto participant) {
         return participantServices.saveParticipant(participant);
     }
 
     @Override
-    public ParticipantDto updateParticipant(ParticipantDto participant) throws URISyntaxException {
+    public ParticipantsExternalParticipantDto updateParticipant(ParticipantsExternalParticipantDto participant) throws URISyntaxException {
         return participantServices.updateParticipant(participant);
     }
 }

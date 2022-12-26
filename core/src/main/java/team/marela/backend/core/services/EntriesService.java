@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import team.marela.backend.core.exceptions.DataNotFoundException;
 import team.marela.backend.core.mappers.DtoMapper;
-import team.marela.backend.core.models.events.EntryDto;
+import team.marela.backend.core.models.EntryDto;
+import team.marela.backend.core.external.services.ParticipantExternalServices;
 import team.marela.backend.database.entities.ParticipantEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
 import team.marela.backend.database.entities.events.EventResultEntity;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 public class EntriesService {
 
 
-    private final ParticipantServices participantServices;
+    private final ParticipantExternalServices participantServices;
     private final EntryRepository entryRepository;
     private final EventRepository eventRepository;
     private final ParticipantRepository participantRepository;
@@ -40,6 +41,7 @@ public class EntriesService {
         );
     }
 
+    //todo
     public EntryDto saveEntry(EntryDto dto) throws URISyntaxException {
         var entity = mapper.toEntity(dto);
 

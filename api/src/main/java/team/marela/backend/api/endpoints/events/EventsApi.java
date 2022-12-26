@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 import team.marela.backend.api.interfaces.events.EventsApiInterface;
-import team.marela.backend.core.models.events.EventDto;
+import team.marela.backend.core.models.EventDto;
 import team.marela.backend.core.services.EventsService;
 
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package team.marela.backend.core.models.events;
+package team.marela.backend.core.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

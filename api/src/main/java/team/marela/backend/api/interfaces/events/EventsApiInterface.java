@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import team.marela.backend.core.models.events.EventDto;
+import team.marela.backend.core.models.EventDto;
 import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
 import javax.validation.Valid;
