@@ -1,10 +1,7 @@
 package team.marela.backend.core.external.models.participants;
 
 import lombok.*;
-import team.marela.backend.core.validators.NotNullUUIDValidationGroup;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter

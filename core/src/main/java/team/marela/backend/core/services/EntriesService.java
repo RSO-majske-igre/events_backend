@@ -12,6 +12,7 @@ import team.marela.backend.core.models.EntryDto;
 import team.marela.backend.database.entities.ParticipantEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
 import team.marela.backend.database.entities.entries.EntryParticipantInvoiceEntity;
+import team.marela.backend.database.entities.events.EventEntity;
 import team.marela.backend.database.entities.events.EventResultEntity;
 import team.marela.backend.database.repositories.ParticipantRepository;
 import team.marela.backend.database.repositories.entries.EntryParticipantInvoiceRepository;
@@ -20,6 +21,7 @@ import team.marela.backend.database.repositories.events.EventRepository;
 import team.marela.backend.database.repositories.events.EventResultRepository;
 
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -49,22 +51,17 @@ public class EntriesService {
     }
 
     //todo: rezultati
-    public EntryDto saveEntry(EntryDto dto) throws URISyntaxException {
+    public EntryDto saveEntry(EntryDto dto) {
         var entity = mapper.toEntity(dto);
 
         var event = eventRepository.findById(dto.getEventId())
                 .orElseThrow(DataNotFoundException::new);
 
-        var eventEntries = entryRepository.findByEvent(event);
-        for(var eventEntry: eventEntries) {
-            for(var eventEntryParticipant: eventEntry.getParticipants()) {
-                for(var participant : entity.getParticipants()) {
-                    if(participant.getParticipantId().equals(eventEntryParticipant.getParticipantId())) {
-                        throw new BadRequestException("Uporabnik s prijavo že obstaja: " + participant.getParticipantId());
-                    }
-                }
-            }
+        if (event.getStartTime().isBefore(LocalDateTime.now())) {
+            throw new BadRequestException("Ni mogoče dodajati novih prijav, dogodek je že potekel");
         }
+
+        checkIfParticipantsDoesntExistsOnEvent(event, entity.getParticipants());
 
         entity = entryRepository.save(
                 entity
@@ -121,5 +118,18 @@ public class EntriesService {
                 })
                 .map(entryParticipantInvoiceRepository::save)
                 .collect(Collectors.toSet());
+    }
+
+    private void checkIfParticipantsDoesntExistsOnEvent(EventEntity event, Set<ParticipantEntity> participants) {
+        var eventEntries = entryRepository.findByEvent(event);
+        for (var eventEntry : eventEntries) {
+            for (var eventEntryParticipant : eventEntry.getParticipants()) {
+                for (var participant : participants) {
+                    if (participant.getParticipantId().equals(eventEntryParticipant.getParticipantId())) {
+                        throw new BadRequestException("Uporabnik s prijavo že obstaja: " + participant.getParticipantId());
+                    }
+                }
+            }
+        }
     }
 }

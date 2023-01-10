@@ -1,401 +1,401 @@
 {
-	"info": {
-		"_postman_id": "549625e1-3b0d-42e5-874c-53ca031abc42",
-		"name": "Events",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21556720"
-	},
-	"item": [
-		{
-			"name": "Participant:: save",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"pinko p\",\r\n    \"email\": \"pinko.p@gmail.com\",\r\n    \"phone\": \"031708115\",\r\n    \"dorm\": {\r\n        \"dormName\": \"Dom 5\"\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/participants",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"participants"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Participant:: update",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\",\r\n    \"name\": \"Jakob Marušič\",\r\n    \"email\": \"jakob.marusic17@gmail.com\",\r\n    \"phone\": \"031708115\",\r\n    \"dorm\": {\r\n        \"id\": \"6bb08093-a2a0-47ee-b4c8-98614bffa4dc\",\r\n        \"dormName\": \"Dom 5\"\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/participants",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"participants"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Participant::getById",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://34.168.23.255:8090/participants/0fe5777d-650b-4caa-a2ea-4f1b996956d5",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"participants",
-						"0fe5777d-650b-4caa-a2ea-4f1b996956d5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Participant::get",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://34.168.23.255:8090/participants/0fe5777d-650b-4caa-a2ea-4f1b996956d5",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"participants",
-						"0fe5777d-650b-4caa-a2ea-4f1b996956d5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Event:: save",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"eventName\": \"Nogomet v vesolju z raketko\",\r\n    \"description\": \"Z ladjo v vesolje in pol cbamo žogo na raketkah\",\r\n    \"startTime\": \"2023-10-10T13:45:00.000Z\",\r\n    \"fee\": 42.69,\r\n    \"teamDescription\": \"ena na dva al pa na tri\",\r\n    \"locationName\": \"Mednarodna vesoljska postaja(una ta velka)\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/events",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"events"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Event:: getById",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"eventName\": \"Nogomet v vesolju\",\r\n    \"description\": \"Z ladjo v vesolje in pol cbamo žogo\",\r\n    \"startTime\": \"2018-12-10T13:45:00.000Z\",\r\n    \"pricePerEntry\": 10.69,\r\n    \"teamDescription\": \"ena na dva\",\r\n    \"locationName\": \"Mednarodna vesoljska postaja\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/events/49c37916-b093-4c7f-923c-78fc51bec9a2",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"events",
-						"49c37916-b093-4c7f-923c-78fc51bec9a2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EventEntry:: save",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"paid\": true,\r\n    \"accepted\": true,\r\n    \"eventId\": \"49c37916-b093-4c7f-923c-78fc51bec9a2\",\r\n    \"participants\": [\r\n        {\r\n            \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\",\r\n            \"name\": \"Jakob Marušič\",\r\n            \"email\": \"jakob.marusic@gmail.com\",\r\n            \"phone\": \"000111222\",\r\n            \"dorm\":{\r\n                \"id\": \"6bb08093-a2a0-47ee-b4c8-98614bffa4dc\",\r\n                \"dormName\": \"Dom 5\"\r\n            },\r\n            \"entries\":[\r\n                \"Kaj\",\r\n                \"JE TO\"\r\n            ]\r\n        }\r\n    ],\r\n    \"place\": 0,\r\n    \"points\": 3\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/events/entries",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"events",
-						"entries"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EventEntry:: save1",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"paid\": true,\r\n    \"accepted\": true,\r\n    \"eventId\": \"49c37916-b093-4c7f-923c-78fc51bec9a2\",\r\n    \"participants\": [\r\n        {\r\n            \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\",\r\n            \"name\": \"Jakob Marušič\",\r\n            \"email\": \"jakob.marusic@gmail.com\",\r\n            \"phone\": \"000111222\",\r\n            \"dorm\":{\r\n                \"id\": \"6bb08093-a2a0-47ee-b4c8-98614bffa4dc\",\r\n                \"dormName\": \"Dom 5\"\r\n            },\r\n            \"entries\":[\r\n                \"Kaj\",\r\n                \"JE TO\",\r\n                \"A more bit drugačno da gre skozi ? hmmm\"\r\n            ]\r\n        }\r\n    ],\r\n    \"place\": 1,\r\n    \"points\": 2\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/events/entries",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"events",
-						"entries"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EventEntry:: getById",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"paid\": true,\r\n    \"accepted\": true,\r\n    \"eventId\": \"49c37916-b093-4c7f-923c-78fc51bec9a2\",\r\n    \"participants\": [\r\n        {\r\n            \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\"\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.168.23.255:8090/events/entries/eb7616db-b5a3-4a71-9b6a-88a4b3202b60",
-					"protocol": "http",
-					"host": [
-						"34",
-						"168",
-						"23",
-						"255"
-					],
-					"port": "8090",
-					"path": [
-						"events",
-						"entries",
-						"eb7616db-b5a3-4a71-9b6a-88a4b3202b60"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "549625e1-3b0d-42e5-874c-53ca031abc42",
+    "name": "Events",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21556720"
+  },
+  "item": [
+    {
+      "name": "Participant:: save",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"pinko p\",\r\n    \"email\": \"pinko.p@gmail.com\",\r\n    \"phone\": \"031708115\",\r\n    \"dorm\": {\r\n        \"dormName\": \"Dom 5\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/participants",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "participants"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Participant:: update",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\",\r\n    \"name\": \"Jakob Marušič\",\r\n    \"email\": \"jakob.marusic17@gmail.com\",\r\n    \"phone\": \"031708115\",\r\n    \"dorm\": {\r\n        \"id\": \"6bb08093-a2a0-47ee-b4c8-98614bffa4dc\",\r\n        \"dormName\": \"Dom 5\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/participants",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "participants"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Participant::getById",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://34.168.23.255:8090/participants/0fe5777d-650b-4caa-a2ea-4f1b996956d5",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "participants",
+            "0fe5777d-650b-4caa-a2ea-4f1b996956d5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Participant::get",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://34.168.23.255:8090/participants/0fe5777d-650b-4caa-a2ea-4f1b996956d5",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "participants",
+            "0fe5777d-650b-4caa-a2ea-4f1b996956d5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Event:: save",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"eventName\": \"Nogomet v vesolju z raketko\",\r\n    \"description\": \"Z ladjo v vesolje in pol cbamo žogo na raketkah\",\r\n    \"startTime\": \"2023-10-10T13:45:00.000Z\",\r\n    \"fee\": 42.69,\r\n    \"teamDescription\": \"ena na dva al pa na tri\",\r\n    \"locationName\": \"Mednarodna vesoljska postaja(una ta velka)\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/events",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "events"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Event:: getById",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"eventName\": \"Nogomet v vesolju\",\r\n    \"description\": \"Z ladjo v vesolje in pol cbamo žogo\",\r\n    \"startTime\": \"2018-12-10T13:45:00.000Z\",\r\n    \"pricePerEntry\": 10.69,\r\n    \"teamDescription\": \"ena na dva\",\r\n    \"locationName\": \"Mednarodna vesoljska postaja\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/events/49c37916-b093-4c7f-923c-78fc51bec9a2",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "events",
+            "49c37916-b093-4c7f-923c-78fc51bec9a2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EventEntry:: save",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"paid\": true,\r\n    \"accepted\": true,\r\n    \"eventId\": \"49c37916-b093-4c7f-923c-78fc51bec9a2\",\r\n    \"participants\": [\r\n        {\r\n            \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\",\r\n            \"name\": \"Jakob Marušič\",\r\n            \"email\": \"jakob.marusic@gmail.com\",\r\n            \"phone\": \"000111222\",\r\n            \"dorm\":{\r\n                \"id\": \"6bb08093-a2a0-47ee-b4c8-98614bffa4dc\",\r\n                \"dormName\": \"Dom 5\"\r\n            },\r\n            \"entries\":[\r\n                \"Kaj\",\r\n                \"JE TO\"\r\n            ]\r\n        }\r\n    ],\r\n    \"place\": 0,\r\n    \"points\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/events/entries",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "events",
+            "entries"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EventEntry:: save1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"paid\": true,\r\n    \"accepted\": true,\r\n    \"eventId\": \"49c37916-b093-4c7f-923c-78fc51bec9a2\",\r\n    \"participants\": [\r\n        {\r\n            \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\",\r\n            \"name\": \"Jakob Marušič\",\r\n            \"email\": \"jakob.marusic@gmail.com\",\r\n            \"phone\": \"000111222\",\r\n            \"dorm\":{\r\n                \"id\": \"6bb08093-a2a0-47ee-b4c8-98614bffa4dc\",\r\n                \"dormName\": \"Dom 5\"\r\n            },\r\n            \"entries\":[\r\n                \"Kaj\",\r\n                \"JE TO\",\r\n                \"A more bit drugačno da gre skozi ? hmmm\"\r\n            ]\r\n        }\r\n    ],\r\n    \"place\": 1,\r\n    \"points\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/events/entries",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "events",
+            "entries"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EventEntry:: getById",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"paid\": true,\r\n    \"accepted\": true,\r\n    \"eventId\": \"49c37916-b093-4c7f-923c-78fc51bec9a2\",\r\n    \"participants\": [\r\n        {\r\n            \"id\": \"0fe5777d-650b-4caa-a2ea-4f1b996956d5\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://34.168.23.255:8090/events/entries/eb7616db-b5a3-4a71-9b6a-88a4b3202b60",
+          "protocol": "http",
+          "host": [
+            "34",
+            "168",
+            "23",
+            "255"
+          ],
+          "port": "8090",
+          "path": [
+            "events",
+            "entries",
+            "eb7616db-b5a3-4a71-9b6a-88a4b3202b60"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
 }

@@ -20,7 +20,6 @@ import team.marela.backend.database.repositories.events.EventRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +38,7 @@ public class EventsService {
 
         var entries = new ArrayList<EntryDto>();
 
-        for(var entry: entity.getEntries()) {
+        for (var entry : entity.getEntries()) {
             var entryDto = entryMapper.toDto(entry);
             entryDto.setParticipants(
                     participantExternalServices.getParticipantsById(entry.getParticipants().stream().map(ParticipantEntity::getParticipantId).toList())
@@ -52,7 +51,7 @@ public class EventsService {
 
     public Page<EventDto> getAll(Integer pageNo, Integer perPage, String sortBy) {
         var page = eventRepository.findAll(PageRequest.of(pageNo, perPage, Sort.by(sortBy)));
-        var x=  page.map(mapper::toDto);
+        var x = page.map(mapper::toDto);
         return x;
     }
 

@@ -10,5 +10,6 @@ import java.util.UUID;
 
 public interface ParticipantRepository extends BaseRepository<ParticipantEntity> {
     Optional<ParticipantEntity> findByParticipantIdAndEntry(UUID participantId, EntryEntity entry);
+
     Set<ParticipantEntity> findByEntry(EntryEntity entry);
 }
