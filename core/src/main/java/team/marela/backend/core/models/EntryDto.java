@@ -28,12 +28,9 @@ public class EntryDto {
     @NotNull
     private UUID eventId;
 
-    @JsonIgnoreProperties(value = {
-            "entries"
-    })
     private Set<ParticipantDto> participants;
 
-    private Set<UUID> invoices;
+    private Set<UUID> invoiceIds;
 
     private Integer place;
     private Integer points;

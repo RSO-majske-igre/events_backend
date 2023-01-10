@@ -1,6 +1,7 @@
 package team.marela.backend.api.endpoints.events;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import team.marela.backend.api.interfaces.events.EntriesApiInterface;
 import team.marela.backend.core.models.EntryDto;
@@ -9,6 +10,7 @@ import team.marela.backend.core.services.EntriesService;
 import java.net.URISyntaxException;
 import java.util.UUID;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 public class EntriesApi implements EntriesApiInterface {

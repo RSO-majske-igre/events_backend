@@ -2,7 +2,9 @@ package team.marela.backend.core.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import team.marela.backend.core.exceptions.BadRequestException;
 import team.marela.backend.core.exceptions.DataNotFoundException;
+import team.marela.backend.core.external.models.participants.ParticipantDto;
 import team.marela.backend.core.external.services.ParticipantExternalServices;
 import team.marela.backend.core.external.services.PaymentExternalServices;
 import team.marela.backend.core.mappers.DtoMapper;
@@ -46,26 +48,36 @@ public class EntriesService {
         );
     }
 
-    //todo
+    //todo: rezultati
     public EntryDto saveEntry(EntryDto dto) throws URISyntaxException {
         var entity = mapper.toEntity(dto);
-        var result =
-                dto.getId() != null ?
-                        entity.getResult() : null;
-        var event = eventRepository.findById(entity.getEvent().getId())
+
+        var event = eventRepository.findById(dto.getEventId())
                 .orElseThrow(DataNotFoundException::new);
 
-        var participants = saveParticipants(entity.getParticipants());
+        var eventEntries = entryRepository.findByEvent(event);
+        for(var eventEntry: eventEntries) {
+            for(var eventEntryParticipant: eventEntry.getParticipants()) {
+                for(var participant : entity.getParticipants()) {
+                    if(participant.getParticipantId().equals(eventEntryParticipant.getParticipantId())) {
+                        throw new BadRequestException("Uporabnik s prijavo že obstaja: " + participant.getParticipantId());
+                    }
+                }
+            }
+        }
+
         entity = entryRepository.save(
                 entity
+                        .setParticipants(null)
                         .setEvent(event)
-                        .setParticipants(participants)
                         .setResult(null)
         );
+        var participants = saveParticipants(dto.getParticipants(), entity);
+        entity = entity.setParticipants(participants);
 
-        if (result != null) {
-            entity.setResult(saveEntryResult(result.setEntry(entity)));
-        }
+//        if (result != null) {
+//            entity.setResult(saveEntryResult(result.setEntry(entity)));
+//        }
 
         return mapper.toDto(
                 entity
@@ -74,15 +86,22 @@ public class EntriesService {
                         entity.getParticipants().stream()
                                 .map(ParticipantEntity::getParticipantId).toList()
                 )
-        ).setInvoices(
+        ).setInvoiceIds(
                 generateInvoicesForParticipants(participants, entity).stream()
                         .map(EntryParticipantInvoiceEntity::getInvoiceId)
                         .collect(Collectors.toSet())
         );
     }
 
-    private Set<ParticipantEntity> saveParticipants(Set<ParticipantEntity> participants) {
-        return participants.stream().map(participantRepository::save)
+    private Set<ParticipantEntity> saveParticipants(Set<ParticipantDto> participants, EntryEntity entry) {
+        return participants.stream()
+                .map(p -> participantRepository.findByParticipantIdAndEntry(p.getId(), entry)
+                        .orElseGet(() ->
+                                ParticipantEntity.builder()
+                                        .participantId(p.getId())
+                                        .entry(entry).build())
+                )
+                .map(participantRepository::save)
                 .collect(Collectors.toSet());
     }
 

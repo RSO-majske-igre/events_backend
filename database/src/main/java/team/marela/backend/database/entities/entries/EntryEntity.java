@@ -30,12 +30,7 @@ public class EntryEntity extends BaseEntity {
     @JoinColumn(name = "eventId")
     private EventEntity event;
 
-    @ManyToMany
-    @JoinTable(
-            name = "participants_entries",
-            joinColumns = {@JoinColumn(name = "entryId")},
-            inverseJoinColumns = {@JoinColumn(name = "participantId")}
-    )
+    @OneToMany(mappedBy = "entry", fetch = FetchType.EAGER)
     private Set<ParticipantEntity> participants;
 
     @OneToOne(mappedBy = "entry")

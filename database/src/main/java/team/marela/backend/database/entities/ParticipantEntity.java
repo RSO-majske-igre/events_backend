@@ -9,10 +9,7 @@ import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
 import team.marela.backend.database.entities.entries.EntryParticipantInvoiceEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,12 +21,13 @@ import java.util.UUID;
 @SuperBuilder
 public class ParticipantEntity extends BaseEntity {
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private UUID participantId;
 
-    @ManyToMany(mappedBy = "participants")
-    private Set<EntryEntity> entries;
+    @ManyToOne
+    @JoinColumn(name = "entry_id")
+    private EntryEntity entry;
 
-    @OneToMany(mappedBy = "participant")
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.REMOVE)
     private Set<EntryParticipantInvoiceEntity> invoices;
 }

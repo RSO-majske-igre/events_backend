@@ -1,6 +1,7 @@
 package team.marela.backend.core.external.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -35,13 +36,18 @@ public class ParticipantExternalServices {
         ).getBody();
     }
 
-    public Set<ParticipantDto> getParticipantsById(List<UUID> ids) throws URISyntaxException {
-        return (Set<ParticipantDto>) (restTemplate.exchange(
+    @SneakyThrows
+    public Set<ParticipantDto> getParticipantsById(List<UUID> ids) {
+        var res = restTemplate.exchange(
                 new URI(String.format("%s/participants/find-by-ids", participantsBaseUrl)),
                 HttpMethod.PUT,
                 new HttpEntity<>(ids),
                 Set.class
-        ).getBody());
+        );
+
+        var body = res.getBody();
+
+        return body;
     }
 
     /**
