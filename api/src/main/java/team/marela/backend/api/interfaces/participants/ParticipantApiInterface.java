@@ -38,16 +38,16 @@ public interface ParticipantApiInterface {
 //            String sortBy
 //    );
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Returns participant with given ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns participant", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Participant with given ID not found"),
-    })
-    ParticipantDto getParticipantById(
-            @Parameter(description = "UUID of participant")
-            @PathVariable UUID id
-    );
+        @GetMapping("/{id}")
+        @Operation(summary = "Returns participant with given ID")
+        @ApiResponses(value = {
+                @ApiResponse(responseCode = "200", description = "Returns participant", content = @Content),
+                @ApiResponse(responseCode = "404", description = "Participant with given ID not found"),
+        })
+        ParticipantDto getParticipantById(
+                @Parameter(description = "UUID of participant")
+                @PathVariable UUID id
+        );
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
