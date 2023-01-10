@@ -61,7 +61,7 @@ public class EntriesService {
             throw new BadRequestException("Ni mogoče dodajati novih prijav, dogodek je že potekel");
         }
 
-        checkIfParticipantsDoesntExistsOnEvent(event, entity.getParticipants());
+        checkIfParticipantsDoesntExistsOnEvent(event, entity, entity.getParticipants());
 
         entity = entryRepository.save(
                 entity
@@ -76,6 +76,8 @@ public class EntriesService {
 //            entity.setResult(saveEntryResult(result.setEntry(entity)));
 //        }
 
+        generateInvoicesForParticipants(participants, entity);
+
         return mapper.toDto(
                 entity
         ).setParticipants(
@@ -83,10 +85,6 @@ public class EntriesService {
                         entity.getParticipants().stream()
                                 .map(ParticipantEntity::getParticipantId).toList()
                 )
-        ).setInvoiceIds(
-                generateInvoicesForParticipants(participants, entity).stream()
-                        .map(EntryParticipantInvoiceEntity::getInvoiceId)
-                        .collect(Collectors.toSet())
         );
     }
 
@@ -106,26 +104,34 @@ public class EntriesService {
         return eventResultRepository.save(result);
     }
 
-    private Set<EntryParticipantInvoiceEntity> generateInvoicesForParticipants(Set<ParticipantEntity> participants, EntryEntity entry) {
-        return participants.stream().map(participant -> {
-                    var invoice = paymentExternalServices.createInvoice(entry, participant);
-                    return EntryParticipantInvoiceEntity.builder()
-                            .invoiceId(invoice.getId())
-                            .participant(participant)
-                            .entry(entry)
-                            .build();
-
-                })
-                .map(entryParticipantInvoiceRepository::save)
-                .collect(Collectors.toSet());
+    private void generateInvoicesForParticipants(Set<ParticipantEntity> participants, EntryEntity entry) {
+        participants.forEach(participant ->
+                paymentExternalServices.createInvoice(entry, participant)
+                        .thenApply(invoice ->
+                                entryParticipantInvoiceRepository.save(
+                                        EntryParticipantInvoiceEntity.builder()
+                                                .invoiceId(invoice.getId())
+                                                .participant(participant)
+                                                .entry(entry)
+                                                .build()
+                                )
+                        )
+        );
     }
 
-    private void checkIfParticipantsDoesntExistsOnEvent(EventEntity event, Set<ParticipantEntity> participants) {
+    private void checkIfParticipantsDoesntExistsOnEvent(
+            EventEntity event,
+            EntryEntity entry,
+            Set<ParticipantEntity> participants
+    ) {
         var eventEntries = entryRepository.findByEvent(event);
         for (var eventEntry : eventEntries) {
             for (var eventEntryParticipant : eventEntry.getParticipants()) {
                 for (var participant : participants) {
-                    if (participant.getParticipantId().equals(eventEntryParticipant.getParticipantId())) {
+                    if (
+                            participant.getParticipantId().equals(eventEntryParticipant.getParticipantId())
+                            && !eventEntry.getId().equals(entry.getId())
+                    ) {
                         throw new BadRequestException("Uporabnik s prijavo že obstaja: " + participant.getParticipantId());
                     }
                 }

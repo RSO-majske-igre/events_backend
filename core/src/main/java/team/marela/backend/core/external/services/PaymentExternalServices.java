@@ -2,6 +2,8 @@ package team.marela.backend.core.external.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import team.marela.backend.core.external.models.payments.PaymentsExternalInvoiceDto;
@@ -12,16 +14,21 @@ import team.marela.backend.database.entities.entries.EntryEntity;
 
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
 public class PaymentExternalServices {
     private final RestTemplate restTemplate = new RestTemplate();
+    private final CircuitBreakerFactory circuitBreakerFactory;
+
     @Value("${external.url.majskeigre_payments_url}")
     private String paymentsBaseUrl;
 
 
-    public PaymentsExternalInvoiceDto createInvoice(EntryEntity entry, ParticipantEntity participant) {
+    @Async
+    public CompletableFuture<PaymentsExternalInvoiceDto> createInvoice(EntryEntity entry, ParticipantEntity participant) {
         var price = entry.getEvent().getFee();
         var wholePart = price.divideToIntegralValue(BigDecimal.ONE).toBigInteger();
         var fractionPart = price.remainder(BigDecimal.ONE).multiply(new BigDecimal(100)).toBigInteger();
@@ -46,12 +53,17 @@ public class PaymentExternalServices {
                         )
                 ).build();
 
-        var x = restTemplate.postForEntity(
-                String.format("%s/invoice", paymentsBaseUrl),
-                invoice,
-                PaymentsExternalInvoiceDto.class
-        ).getBody();
+        var circuitBreaker = circuitBreakerFactory.create("invoiceGeneratingCircuiteBreaker");
 
-        return x;
+        return CompletableFuture.completedFuture(
+               circuitBreaker.run(
+                       () ->  restTemplate.postForEntity(
+                               String.format("%s/invoice", paymentsBaseUrl),
+                               invoice,
+                               PaymentsExternalInvoiceDto.class
+                       ).getBody(),
+                       (throwable) -> null
+               )
+        );
     }
 }
