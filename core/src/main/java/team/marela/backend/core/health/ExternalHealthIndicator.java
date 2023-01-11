@@ -23,8 +23,6 @@ public class ExternalHealthIndicator {
         );
     }
 
-    @Bulkhead(name = "Time", type = Bulkhead.Type.THREADPOOL)
-    @TimeLimiter(name = "healthIndicatorTimeLimiter", fallbackMethod = "fallback")
     private Health circuitBreakerRun(String url) {
         var respMap = restTemplate
                 .getForEntity(String.format("%s/actuator/health", url), Map.class)
@@ -38,10 +36,5 @@ public class ExternalHealthIndicator {
         return respMap.get("status").equals("UP")
                 ? Health.up().build()
                 : Health.down().build();
-    }
-
-    public Health fallback() {
-        System.out.println("TUKI");
-        return Health.down().build();
     }
 }
