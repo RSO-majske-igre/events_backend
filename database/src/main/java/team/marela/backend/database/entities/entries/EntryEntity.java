@@ -36,6 +36,6 @@ public class EntryEntity extends BaseEntity {
     @OneToOne(mappedBy = "entry")
     private EventResultEntity result;
 
-    @OneToMany(mappedBy = "entry")
+    @OneToMany(mappedBy = "entry", fetch = FetchType.EAGER)
     private Set<EntryParticipantInvoiceEntity> invoices;
 }

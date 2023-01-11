@@ -1,6 +1,7 @@
 package team.marela.backend.core.services;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import team.marela.backend.core.exceptions.BadRequestException;
 import team.marela.backend.core.exceptions.DataNotFoundException;
@@ -13,7 +14,6 @@ import team.marela.backend.database.entities.ParticipantEntity;
 import team.marela.backend.database.entities.entries.EntryEntity;
 import team.marela.backend.database.entities.entries.EntryParticipantInvoiceEntity;
 import team.marela.backend.database.entities.events.EventEntity;
-import team.marela.backend.database.entities.events.EventResultEntity;
 import team.marela.backend.database.repositories.ParticipantRepository;
 import team.marela.backend.database.repositories.entries.EntryParticipantInvoiceRepository;
 import team.marela.backend.database.repositories.entries.EntryRepository;
@@ -100,23 +100,28 @@ public class EntriesService {
                 .collect(Collectors.toSet());
     }
 
-    private EventResultEntity saveEntryResult(EventResultEntity result) {
-        return eventResultRepository.save(result);
-    }
-
     private void generateInvoicesForParticipants(Set<ParticipantEntity> participants, EntryEntity entry) {
-        participants.forEach(participant ->
-                paymentExternalServices.createInvoice(entry, participant)
-                        .thenApply(invoice ->
-                                entryParticipantInvoiceRepository.save(
-                                        EntryParticipantInvoiceEntity.builder()
-                                                .invoiceId(invoice.getId())
-                                                .participant(participant)
-                                                .entry(entry)
-                                                .build()
-                                )
-                        )
+        var entryInvoices = CollectionUtils.emptyIfNull(
+                entryParticipantInvoiceRepository.findByEntry(entry)
         );
+
+        participants.stream()
+                .filter(participant ->
+                    entryInvoices.stream()
+                            .noneMatch(i -> i.getParticipant().getParticipantId().equals(participant.getParticipantId()))
+                )
+                .forEach(participant ->
+                        paymentExternalServices.createInvoice(entry, participant)
+                                .thenApply(invoice ->
+                                        entryParticipantInvoiceRepository.save(
+                                                EntryParticipantInvoiceEntity.builder()
+                                                        .invoiceId(invoice.getId())
+                                                        .participant(participant)
+                                                        .entry(entry)
+                                                        .build()
+                                        )
+                                )
+                );
     }
 
     private void checkIfParticipantsDoesntExistsOnEvent(
@@ -130,7 +135,7 @@ public class EntriesService {
                 for (var participant : participants) {
                     if (
                             participant.getParticipantId().equals(eventEntryParticipant.getParticipantId())
-                            && !eventEntry.getId().equals(entry.getId())
+                                    && !eventEntry.getId().equals(entry.getId())
                     ) {
                         throw new BadRequestException("Uporabnik s prijavo že obstaja: " + participant.getParticipantId());
                     }

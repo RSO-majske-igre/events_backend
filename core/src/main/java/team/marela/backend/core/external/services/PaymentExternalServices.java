@@ -29,7 +29,37 @@ public class PaymentExternalServices {
 
     @Async
     public CompletableFuture<PaymentsExternalInvoiceDto> createInvoice(EntryEntity entry, ParticipantEntity participant) {
-        var price = entry.getEvent().getFee();
+        return CompletableFuture.completedFuture(
+                circuitBreakerFactory.create("invoiceGeneratingCircuitBreaker").run(
+                       () ->  restTemplate.postForEntity(
+                               String.format("%s/invoice", paymentsBaseUrl),
+                               createInvoiceData(entry, participant),
+                               PaymentsExternalInvoiceDto.class
+                       ).getBody(),
+                       (throwable) -> null
+               )
+        );
+    }
+
+    private PaymentsExternalInvoiceDto createInvoiceData(EntryEntity entry, ParticipantEntity participant) {
+        var stripePriceFormat = generateStripeFormattedPrice(entry.getEvent().getFee());
+
+        return PaymentsExternalInvoiceDto.builder()
+                .participantId(participant.getParticipantId())
+                .entryId(entry.getId())
+                .sumAmount(stripePriceFormat)
+                .status(PaymentsExternalInvoiceStatusEnum.CREATED)
+                .invoiceLines(
+                        Set.of(
+                                PaymentsExternalInvoiceLineDto.builder()
+                                        .name(entry.getEvent().getEventName())
+                                        .price(stripePriceFormat)
+                                        .build()
+                        )
+                ).build();
+    }
+
+    private Long generateStripeFormattedPrice(BigDecimal price) {
         var wholePart = price.divideToIntegralValue(BigDecimal.ONE).toBigInteger();
         var fractionPart = price.remainder(BigDecimal.ONE).multiply(new BigDecimal(100)).toBigInteger();
         var stringPrice =
@@ -38,32 +68,7 @@ public class PaymentExternalServices {
                         wholePart,
                         fractionPart
                 );
-        var longPrice = Long.parseLong(stringPrice);
 
-        var invoice = PaymentsExternalInvoiceDto.builder()
-                .participantId(participant.getParticipantId())
-                .sumAmount(longPrice)
-                .status(PaymentsExternalInvoiceStatusEnum.CREATED)
-                .invoiceLines(
-                        Set.of(
-                                PaymentsExternalInvoiceLineDto.builder()
-                                        .name(entry.getEvent().getEventName())
-                                        .price(longPrice)
-                                        .build()
-                        )
-                ).build();
-
-        var circuitBreaker = circuitBreakerFactory.create("invoiceGeneratingCircuiteBreaker");
-
-        return CompletableFuture.completedFuture(
-               circuitBreaker.run(
-                       () ->  restTemplate.postForEntity(
-                               String.format("%s/invoice", paymentsBaseUrl),
-                               invoice,
-                               PaymentsExternalInvoiceDto.class
-                       ).getBody(),
-                       (throwable) -> null
-               )
-        );
+        return Long.parseLong(stringPrice);
     }
 }

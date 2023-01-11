@@ -14,6 +14,8 @@ public class PaymentsExternalInvoiceDto {
     private UUID id;
     private Long sumAmount;
     private UUID participantId;
+    private UUID entryId;
+
     private PaymentsExternalInvoiceStatusEnum status;
     private Set<PaymentsExternalInvoiceLineDto> invoiceLines;
 }
