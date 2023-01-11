@@ -2,6 +2,7 @@ package team.marela.backend.core.health;
 
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
@@ -32,7 +33,6 @@ public class ExternalHealthIndicator {
             return Health.down().build();
         }
 
-        var x = respMap.get("status").equals("UP");
         return respMap.get("status").equals("UP")
                 ? Health.up().build()
                 : Health.down().build();
