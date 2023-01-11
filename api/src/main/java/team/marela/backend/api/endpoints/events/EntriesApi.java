@@ -1,5 +1,6 @@
 package team.marela.backend.api.endpoints.events;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,8 @@ public class EntriesApi implements EntriesApiInterface {
     }
 
     @Override
-    public EntryDto postEntry(EntryDto entry) throws URISyntaxException {
+    @Timed(value = "entries__post", description = "Time of processing for entry posting", percentiles = {0.25, 0.95})
+    public EntryDto postEntry(EntryDto entry) {
         return entriesService.saveEntry(entry);
     }
 }
