@@ -9,6 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 @EnableAsync
+@RefreshScope
 @SpringBootApplication(scanBasePackages = {"team.marela.backend", "team.marela.backend"})
 public class BackendApplication {
 
