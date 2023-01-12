@@ -4,6 +4,7 @@ import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+@Log
 @Service
 @RequiredArgsConstructor
 public class PaymentExternalServices {
@@ -64,11 +66,13 @@ public class PaymentExternalServices {
                 PaymentsExternalInvoiceDto.class
         ).getBody();
 
+        log.info("Invoice creation success");
         invoiceCreationSuccessCounter.increment(1);
         return res;
     }
 
     private PaymentsExternalInvoiceDto createInvoiceCircuitBreakerFallback() {
+        log.severe("Invoice creation failure");
         invoiceCreationFailureCounter.increment(1);
         return null;
     }

@@ -1,5 +1,7 @@
 package team.marela.backend.api.exceptions;
 
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +12,7 @@ import team.marela.backend.core.exceptions.BadRequestException;
 import team.marela.backend.core.exceptions.DataNotFoundException;
 import team.marela.backend.core.exceptions.ForbiddenException;
 
+@Log
 @RestControllerAdvice
 public class ExceptionApiHandler {
 
@@ -39,7 +42,7 @@ public class ExceptionApiHandler {
     }
 
     private ResponseEntity<ExceptionApiModel> generateResponseEntity(Exception exception, HttpStatus status) {
-        exception.printStackTrace();
+        log.severe(String.format("%s\t%s", exception.getClass().getSimpleName(), status.value()));
         return ResponseEntity.status(status).body(
                 ExceptionApiModel.builder()
                         .exception(exception.getClass().getSimpleName())

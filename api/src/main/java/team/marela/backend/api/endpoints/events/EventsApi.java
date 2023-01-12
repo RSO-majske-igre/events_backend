@@ -36,11 +36,8 @@ public class EventsApi implements EventsApiInterface {
 
     }
 
-    private static final Logger log = LoggerFactory.getLogger(BackendApplication.class);
-
     @Override
     public Page<EventDto> getEvents(Integer page, Integer perPage, String sortBy) {
-        log.error("Ojoj to se pa prikaze");
         getEventsMetricCounter.increment(1);
         return eventsService.getAll(page, perPage, sortBy);
     }
