@@ -3,9 +3,12 @@ package team.marela.backend.api.endpoints.events;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import team.marela.backend.api.BackendApplication;
 import team.marela.backend.api.interfaces.events.EventsApiInterface;
 import team.marela.backend.core.models.EventDto;
 import team.marela.backend.core.services.EventsService;
@@ -33,8 +36,11 @@ public class EventsApi implements EventsApiInterface {
 
     }
 
+    private static final Logger log = LoggerFactory.getLogger(BackendApplication.class);
+
     @Override
     public Page<EventDto> getEvents(Integer page, Integer perPage, String sortBy) {
+        log.error("Ojoj to se pa prikaze");
         getEventsMetricCounter.increment(1);
         return eventsService.getAll(page, perPage, sortBy);
     }
