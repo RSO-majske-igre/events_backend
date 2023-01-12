@@ -4,9 +4,9 @@ Events backend microservice stores data about all events and participants.
 
 ## Production version
 
-BaseUrl: [http://34.168.23.255:8090](http://34.168.23.255:8090)
+BaseUrl: [http://34.168.255.49:8090](http://34.168.255.49:8090)
 
-Swagger: [http://34.168.23.255:8090/swagger-ui/index.html](http://34.168.23.255:8090/swagger-ui/index.html)
+Swagger: [http://34.168.255.49:8090/swagger-ui/index.html](http://34.168.255.49:8090/swagger-ui/index.html)
 
 ## DockerHub
 
