@@ -20,7 +20,7 @@ public class ExternalHealthIndicator {
     protected Health health(String url) {
         return circuitBreakerFactory.create(ExternalHealthIndicator.class.getSimpleName()).run(
                 () -> circuitBreakerRun(url),
-                throwable -> Health.down().build()
+                throwable -> Health.up().build()
         );
     }
 
